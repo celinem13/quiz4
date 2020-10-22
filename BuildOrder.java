@@ -29,16 +29,19 @@ public class BuildOrder {
         boolean conditions;
 
         // Check for projects that have no dependencies
-        for (String project : projects) {
+        for (int i = 0; i < projects.length; i++)
+        {
             conditions = false;
-            for (String[] dependency : dependencies)
-                if (project.equals(dependency[1])) {
+            for (int j = 0; j < dependencies.length; j++)
+                if (projects[i] == dependencies[j][1])
+                {
                     conditions = true;
                     break;
                 }
 
-            if (!conditions) {
-                completed[completedI] = project;
+            if (!conditions)
+            {
+                completed[completedI] = projects[i];
                 completedI++;
                 possible = true;
             }
@@ -57,12 +60,12 @@ public class BuildOrder {
 
     static void findRequ(String[][] d, String target) {
         for (int i = 0; i < d.length; i++) {
-            if (d[i][0].equals(target)) {
+            if (d[i][0] == target) {
                 d[i][0] = null;
 
                 int onlyRequ = 0;
-                for (String[] strings : d)
-                    if (d[i][1].equals(strings[1]))
+                for (int j = 0; j < d.length; j++)
+                    if (d[i][1] == d[j][1])
                         onlyRequ++;
 
                 if (onlyRequ == 1) {
